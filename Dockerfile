@@ -1,10 +1,9 @@
 FROM alpine:3.2
+MAINTAINER Edux87 "edaniel15@gmail.com"
 
-RUN apk add --update musl python3 py-pip && \
+RUN apk add --update musl python3 py-pip eve wget && \
     rm /var/cache/apk/*
 
-RUN pip install eve
-
-EXPOSE 5000
+EXPOSE 5000 80 81
 COPY ./app /app
 CMD ["python", "/app/run.py"]
