@@ -1,9 +1,14 @@
-FROM alpine:3.2
-MAINTAINER Edux87 "edaniel15@gmail.com"
+FROM alpine:3.3
+ENV TERM xterm
 
-RUN apk add --update musl python3 py-pip eve wget && \
-    rm /var/cache/apk/*
+RUN apk add --update musl python3 py-pip bash ca-certificates
+RUN pip install --upgrade pip
+RUN rm /var/cache/apk/*
 
-EXPOSE 5000 80 81
-COPY ./app /app
+ADD ./requirements.txt /
+RUN pip install -r requirements.txt
+
+WORKDIR /api
+
 CMD ["python", "/app/run.py"]
+EXPOSE 8000 5000 8080 9001
